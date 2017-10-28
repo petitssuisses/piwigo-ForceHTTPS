@@ -1,0 +1,1 @@
+Geeft de mogelijkheid om https-verbindingen op te dringen aan servers met https mogelijkheden.

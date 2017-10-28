@@ -1,0 +1,1 @@
+Umožňuje použít zabezpečení spojení https pokud jej hosting server podporuje.

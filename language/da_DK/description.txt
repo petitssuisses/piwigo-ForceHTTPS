@@ -1,0 +1,1 @@
+Giver mulighed for at gennemtvinge https-forbindelser på servere, hvor https er aktiveret.

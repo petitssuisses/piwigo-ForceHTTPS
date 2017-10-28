@@ -1,0 +1,1 @@
+Gir muligheten til å tvinge https tilkoblinger på https aktiverte servere.

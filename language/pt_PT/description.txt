@@ -1,0 +1,1 @@
+Permite a possibilidade de forçar ligações https em servidores com https ativado.

@@ -1,0 +1,1 @@
+Proporciona la capacidad de forzar conexiones https en los servidores habilitados para https.

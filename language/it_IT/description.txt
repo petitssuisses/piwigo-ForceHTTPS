@@ -1,0 +1,1 @@
+Questo plugin consente di forzare le connessioni https su server con https attivato.

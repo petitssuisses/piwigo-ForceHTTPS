@@ -1,0 +1,1 @@
+Dod iespēju izmantot piespiestu https savienojumu uz HTTPS iespējotiem serveriem.

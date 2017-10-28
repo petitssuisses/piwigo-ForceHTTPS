@@ -1,0 +1,1 @@
+Permet de forcer l'utilisation du SSL (https), si SSL est activé sur le serveur

@@ -1,0 +1,1 @@
+Umożliwia wymuszenie połączeń szyfrowanych na serwerach z dostępnym protokołem https.

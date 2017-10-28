@@ -1,0 +1,1 @@
+Ermöglicht das Erzwingen der Benutzung von HTTPS Verbindungen auf HTTPS fähigen Servern.

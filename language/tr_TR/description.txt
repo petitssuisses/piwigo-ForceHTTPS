@@ -1,0 +1,1 @@
+HTTPS etkinleştirilmiş sunucularda güvenli bağlantıyı zorlama olanağı sağlar.
