@@ -25,6 +25,7 @@ Changelog :
 defined('PHPWG_ROOT_PATH') or die('Hacking attempt!');
 
 define('FORCE_HTTPS_PREFIX','https');			// prefix for https connections
+define('FORCE_HTTP_PREFIX','http');				// prefix for http connections
 define('FORCE_HTTPS_ID',      basename(dirname(__FILE__)));
 define('FORCE_HTTPS_PATH' ,   PHPWG_PLUGINS_PATH . FORCE_HTTPS_ID . '/');
 global $conf;
@@ -66,19 +67,36 @@ function force_https_admin_plugin_menu_links($menu)
 function force_https_header() {
 	global $conf;
 	
-	if ($conf['force_https']['fhp_use_partial_https_login'] and script_basename()=='identification') {
-		force_https_set_header_https();	// Force HTTPS for identification page
-	} else if ($conf['force_https']['fhp_use_partial_https_login'] and script_basename()=='register') {
-		force_https_set_header_https();	// Force HTTPS for register page
-	} else if ($conf['force_https']['fhp_use_partial_https_login'] and script_basename()=='profile') {
-		force_https_set_header_https();	// Force HTTPS for profile page
-	} else if ($conf['force_https']['fhp_use_partial_https_admin'] and script_basename()=='admin') {
-		force_https_set_header_https();	// Force HTTPS for admin pages
-	} else if ($conf['force_https']['fhp_use_https']) {
+	if ($conf['force_https']['fhp_use_https']) {
 		if ($conf['force_https']['fhp_use_sts'] && isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') {
 			force_https_set_header_sts();	// Sets HSTS header
-		} elseif (!isset($_SERVER['HTTPS'])) {
-			force_https_set_header_https();	// Force HTTPS globally
+		}
+		force_https_set_header_https();	// Force HTTPS globally)
+	} else {
+		// HTTPS not forced globally
+		switch(script_basename()) {
+			case 'identification':	// Enables HTTPS only if browsing in HTTP and conf is active for login
+				if (($conf['force_https']['fhp_use_partial_https_login']) and (!isset($_SERVER['HTTPS']))) {
+					force_https_set_header_https();
+				}
+				break;
+			case 'register':		// Enables HTTPS only if browsing in HTTP and conf is active for login
+				if ($conf['force_https']['fhp_use_partial_https_login'] and !isset($_SERVER['HTTPS'])) {
+					force_https_set_header_https();
+				}
+				break;
+			case 'profile':			// Enables HTTPS only if browsing in HTTP and conf is active for login
+				if ($conf['force_https']['fhp_use_partial_https_login'] and !isset($_SERVER['HTTPS'])) {
+					force_https_set_header_https();
+				}
+				break;
+			case 'admin':			// Enables HTTPS only if browsing in HTTP and conf is active for admin
+				if ($conf['force_https']['fhp_use_partial_https_admin'] and !isset($_SERVER['HTTPS'])) {
+					force_https_set_header_https();
+				}
+				break;
+			default:
+				force_https_set_header_http();
 		}
 	}
 }
@@ -97,9 +115,23 @@ function force_https_set_header_sts() {
  */
 function force_https_set_header_https() {
 	global $conf;
-	// Without HSTS
-	header('Status-Code: '.$conf['force_https']['fhp_redirect_code']);
-	header('Location: '.FORCE_HTTPS_PREFIX.'://'.$_SERVER["HTTP_HOST"].$_SERVER['REQUEST_URI']);
+
+	if (!isset($_SERVER['HTTPS'])) {
+		header('Status-Code: '.$conf['force_https']['fhp_redirect_code']);
+		header('Location: '.FORCE_HTTPS_PREFIX.'://'.$_SERVER["HTTP_HOST"].$_SERVER['REQUEST_URI']);
+	}
+}
+
+/**
+ * Deactivate SSL navigation
+ */
+function force_https_set_header_http() {
+	global $conf;
+
+	if (isset($_SERVER['HTTPS'])) {
+		header('Status-Code: '.$conf['force_https']['fhp_redirect_code']);
+		header('Location: '.FORCE_HTTP_PREFIX.'://'.$_SERVER["HTTP_HOST"].$_SERVER['REQUEST_URI']);
+	}
 }
 
 /**

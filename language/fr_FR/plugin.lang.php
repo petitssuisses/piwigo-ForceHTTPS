@@ -21,8 +21,8 @@ $lang['fhp_sts_maxage_label'] = 'STS max-age';
 $lang['fhp_sts_maxage_comment'] = 'STS max-age en secondes';
 $lang['fhp_submit'] = 'Enregistrer';
 // New 2.0.0
-$lang['Global activation'] = 'Global activation';
-$lang['Parial activation'] = 'Partial activation';
+$lang['Global activation'] = 'Activation globale';
+$lang['Parial activation'] = 'Activation partielle';
 $lang['fhp_force_https_everywhere_label'] = 'HTTPS global';
 $lang['fhp_force_https_everywhere_comment'] = 'Forcer l\'utilisation du protocole HTTPS sur l\'ensemble du site';
 $lang['fhp_force_https_partial_login_label'] = 'HTTPS pour l\'identification';

@@ -37,13 +37,13 @@
 		<legend>{'Partial activation'|@translate}</legend>
 		<table align="left" border="0">
 			<tr valign="top">
-				<td nowrap="nowrap"><input type="checkbox" name="fhp_use_partial_https_login" id="fhp_use_partial_https_login" value="{$force_https.fhp_use_partial_https_login}" {if $force_https.fhp_use_partial_https_login}checked="checked"{/if}></td>
+				<td nowrap="nowrap"><input type="checkbox" name="fhp_use_partial_https_login" id="fhp_use_partial_https_login" value="{$force_https.fhp_use_partial_https_login}" {if $force_https.fhp_use_partial_https_login || $force_https.fhp_use_https}checked="checked"{/if} {if $force_https.fhp_use_https}disabled="true"{/if}></td>
 				<td nowrap="nowrap"><label>{'fhp_force_https_partial_login_label'|@translate}</label>
 				<a class="icon-info-circled-1 showInfo" title="{'fhp_force_https_partial_login_comment'|@translate}"></a></td>
 				
 			</tr>
 			<tr valign="top">
-				<td nowrap="nowrap"><input type="checkbox" name="fhp_use_partial_https_admin" id="fhp_use_partial_https_admin" value="{$force_https.fhp_use_partial_https_admin}" {if $force_https.fhp_use_partial_https_admin}checked="checked"{/if}></td>
+				<td nowrap="nowrap"><input type="checkbox" name="fhp_use_partial_https_admin" id="fhp_use_partial_https_admin" value="{$force_https.fhp_use_partial_https_admin}" {if $force_https.fhp_use_partial_https_admin || $force_https.fhp_use_https}checked="checked"{/if} {if $force_https.fhp_use_https}disabled="true"{/if}></td>
 				<td nowrap="nowrap"><label>{'fhp_force_https_partial_admin_label'|@translate}</label>
 				<a class="icon-info-circled-1 showInfo" title="{'fhp_force_https_partial_admin_comment'|@translate}"></a></td>
 			</tr>
