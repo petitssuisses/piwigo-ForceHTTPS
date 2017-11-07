@@ -8,8 +8,7 @@ Author: Arnaud (bonhommedeneige)
 Author URI: http://piwigo.org/forum/profile.php?id=19052
 
 Changelog :
- 2.0.0 (06.11.2017) : Upgraded plugin design
- 					  Implemented 
+ 2.0.0 (06.11.2017) : Upgraded new features (partial activation, new settings
  1.5.0 (01.11.2017) : Upgrade for Piwigo 2.9
  					  Remove useless ...init() function
  1.4.0 (02.01.2015) : Upgrade for Piwigo 2.7 compatibility
