@@ -12,4 +12,16 @@ $lang['fhp_activate_sts_comment'] = 'Active HTTP Strict Transport Security (HSTS
 $lang['fhp_sts_maxage_label'] = 'STS max-age';
 $lang['fhp_sts_maxage_comment'] = 'STS max-age in seconds';
 $lang['fhp_submit'] = 'Submit';
+// New 2.0.0
+$lang['Global activation'] = 'Global activation';
+$lang['Parial activation'] = 'Partial activation';
+$lang['fhp_force_https_everywhere_label'] = 'Global HTTPS';
+$lang['fhp_force_https_everywhere_comment'] = 'Force usage of HTTPS on this site';
+$lang['fhp_force_https_partial_login_label'] = 'Force HTTPS for identification';
+$lang['fhp_force_https_partial_admin_label'] = 'Force HTTPS for administration';
+$lang['fhp_force_https_partial_login_comment'] = 'HTTPS activated for identification, register and profile pages only';
+$lang['fhp_force_https_partial_admin_comment'] = 'HTTPS activated for administration pages only';
+$lang['seconds'] = 'secondes';
+$lang['max-age must be set to a minimum of six months (15768000), but longer periods such as two years (63072000) are recommended'] = 'max-age doit être égal au minimum d\une durée de six mois (15768000), mais une période plus longue comme deux ans (63072000) est recommandée';
+$lang['301 permanent, 302 temporary'] = '301 permanent, 302 temporaire';
 ?>

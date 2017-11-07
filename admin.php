@@ -2,10 +2,10 @@
 /***********************************************
 * File      :   admin.php
 * Project   :   piwigo-force-https
-* Descr     :   Generate the admin panel
+* Descr     :   Generates the admin panel
 *
 * Created   :   02.05.2013
-* Updated   :   05.03.2014
+* Updated   :   01.11.2017
 * Author: bonhommedeneige
 *
 * This program is free software: you can redistribute it and/or modify
@@ -25,6 +25,7 @@
 
 /**
 Changelog :
+ 2.0.0 (01.11.2017) : Added new options
  1.3.0 (05.03.2014) : Upgrade for Piwigo 2.6 compatibility
  1.1.0 (03.05.2013) : No change yet
  1.0.0 (02.05.2013) : Initial version 
@@ -39,42 +40,31 @@ load_language('plugin.lang', FORCE_HTTPS_PATH);
 // Fetch the template.
 global $template, $conf, $lang;
 
+// save config
+if (isset($_POST['save_config']))
+{
+	$conf['force_https'] = array(
+			'fhp_use_https' => isset($_POST['fhp_use_https']),
+			'fhp_use_sts' => isset($_POST['fhp_use_sts']),
+			'fhp_use_partial_https_login' => isset($_POST['fhp_use_partial_https_login']),
+			'fhp_use_partial_https_admin' => isset($_POST['fhp_use_partial_https_admin']),
+			'fhp_sts_maxage' => intval($_POST['fhp_sts_maxage']),
+			'fhp_redirect_code' => intval($_POST['fhp_redirect_code']),
+			
+	);
+
+	conf_update_param('force_https', $conf['force_https']);
+	$page['infos'][] = l10n('Information data registered in database');
+}
 
 // Test URL
 $tpl_test_https_url = "https://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 
-// Load parameter
-$tpl_use_https = $conf['fhp_use_https'] ? 'true' : 'false';
-$tpl_use_sts = $conf['fhp_use_sts'] ? 'true' : 'false';
-
-// Update conf if submitted in admin site
-if (isset($_POST['submit']) && !empty($_POST['fhp_use_https']))
-{
-	$query = "UPDATE ". CONFIG_TABLE ." SET value='". $_POST['fhp_use_https'] ."' WHERE param='fhp_use_https'";
-	pwg_query($query);
-
-	// keep the value in the admin form
-	$tpl_use_https = $_POST['fhp_use_https'];
-}
-
-// Update conf if submitted in admin site
-if (isset($_POST['submit']) && !empty($_POST['fhp_use_sts']))
-{
-	$query = "UPDATE ". CONFIG_TABLE ." SET value='". $_POST['fhp_use_sts'] ."' WHERE param='fhp_use_sts'";
-	pwg_query($query);
-
-	// keep the value in the admin form
-	$tpl_use_sts = $_POST['fhp_use_sts'];
-}
-
-// send value to template
-$template->assign(
-	array(
-		'TPL_USE_HTTPS'			=> $tpl_use_https,
-		'TPL_USE_STS'           => $tpl_use_sts,
-		'TPL_TEST_URL'          => $tpl_test_https_url
-	)
-);
+// send config to template
+$template->assign(array(
+		'force_https' => $conf['force_https'],
+		'TPL_TEST_URL'          => $tpl_test_https_url,
+));
 
 // Add our template to the global template
 $template->set_filenames(

@@ -1,13 +1,17 @@
 <?php 
 /*
 Plugin Name: Force HTTPS
-Version: 1.4.0
+Version: auto
 Description: Gives the capacity to force https connections on https enabled servers.
 Plugin URI: http://piwigo.org/ext/extension_view.php?eid=697
-Author: bonhommedeneige
+Author: Arnaud (bonhommedeneige)
 Author URI: http://piwigo.org/forum/profile.php?id=19052
 
 Changelog :
+ 2.0.0 (06.11.2017) : Upgraded plugin design
+ 					  Implemented 
+ 1.5.0 (01.11.2017) : Upgrade for Piwigo 2.9
+ 					  Remove useless ...init() function
  1.4.0 (02.01.2015) : Upgrade for Piwigo 2.7 compatibility
  1.3.0 (05.03.2014) : Upgrade for Piwigo 2.6 compatibility
  1.2.0 (05.05.2013) : Fixed unicity of strbool function (renamed to piwigo_force_https_strbool)
@@ -20,35 +24,33 @@ Changelog :
 
 defined('PHPWG_ROOT_PATH') or die('Hacking attempt!');
 
-global $conf;
-
-// +-----------------------------------------------------------------------+
-// | Define plugin constants                                               |
-// +-----------------------------------------------------------------------+
-define('FORCE_HTTPS_ID', basename(dirname(__FILE__)));
+define('FORCE_HTTPS_PREFIX','https');			// prefix for https connections
+define('FORCE_HTTPS_ID',      basename(dirname(__FILE__)));
 define('FORCE_HTTPS_PATH' ,   PHPWG_PLUGINS_PATH . FORCE_HTTPS_ID . '/');
-define('FORCE_HTTPS_VERSION', '1.4.0');
-// this is automatically updated by PEM if you publish your plugin with SVN, otherwise you musn't forget to change it, as well as "Version" in the plugin header
-
+global $conf;
 
 // +-----------------------------------------------------------------------+
 // | Add event handlers                                                    |
 // +-----------------------------------------------------------------------+
 // init the plugin
-add_event_handler('init', 'piwigo_force_https_init');
+add_event_handler('init', 'force_https_init');
+
+// register new identification block when https identfication is enabled
+add_event_handler('blockmanager_register_blocks', 'force_https_identification_menu_register');
+// hide identification menu when https identification is enabled
+add_event_handler('blockmanager_apply', 'force_https_hide_identification_menu');
 
 if (defined('IN_ADMIN'))
 {
   // admin plugins menu link
-  add_event_handler('get_admin_plugin_menu_links', 'piwigo_force_https_admin_plugin_menu_links');
+  add_event_handler('get_admin_plugin_menu_links', 'force_https_admin_plugin_menu_links');
 }
-
-add_event_handler('loc_end_page_header', 'piwigo_force_https_header' );
+add_event_handler('loc_end_page_header', 'force_https_header' );
 
 /**
  * Admin plugins menu link
  */
-function piwigo_force_https_admin_plugin_menu_links($menu) 
+function force_https_admin_plugin_menu_links($menu) 
 {
   array_push($menu, array(
     'NAME' => l10n('Force HTTPS'),
@@ -58,69 +60,96 @@ function piwigo_force_https_admin_plugin_menu_links($menu)
 }
 
 /**
- * plugin initialization
- *   - check for upgrades
- *   - unserialize configuration
- *   - load language
- */
-function piwigo_force_https_init()
-{
-  global $conf, $pwg_loaded_plugins;
-  
-  // apply upgrade if needed
-  if (
-    FORCE_HTTPS_VERSION == 'auto' or
-    $pwg_loaded_plugins[FORCE_HTTPS_ID]['version'] == 'auto' or
-    version_compare($pwg_loaded_plugins[FORCE_HTTPS_ID]['version'], FORCE_HTTPS_VERSION, '<')
-  )
-  {
-    // call install function
-    include_once(FORCE_HTTPS_PATH . 'maintain.inc.php');
-    plugin_install();
-    
-    // update plugin version in database
-    if ( $pwg_loaded_plugins[FORCE_HTTPS_ID]['version'] != 'auto' and FORCE_HTTPS_VERSION != 'auto' )
-    {
-      $query = '
-		UPDATE '. PLUGINS_TABLE .'
-		SET version = "'. FORCE_HTTPS_VERSION .'"
-		WHERE id = "'. FORCE_HTTPS_ID .'"';
-      pwg_query($query);
-      
-      $pwg_loaded_plugins[FORCE_HTTPS_ID]['version'] = FORCE_HTTPS_VERSION;
-      
-      if (defined('IN_ADMIN'))
-      {
-        $_SESSION['page_infos'][] = 'Force https updated to version '. FORCE_HTTPS_VERSION;
-      }
-    }
-  }
-}
-
-/**
  * Http connections control
  * - function completes http header based on configuration settings
  */
-function piwigo_force_https_header() {
+function force_https_header() {
 	global $conf;
-
-	// Force https connection
-	$use_https = isset($conf['fhp_use_https']) ? piwigo_force_https_strbool($conf['fhp_use_https']) : 'false';
-	$use_sts = isset($conf['fhp_use_sts']) ? piwigo_force_https_strbool($conf['fhp_use_sts']) : 'false';
-
-	// Activates STS security
-	if ($use_https == 'true') {
-		if ($use_sts == 'true' && isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') {
-		  header('Strict-Transport-Security: max-age=500');
+	
+	if ($conf['force_https']['fhp_use_partial_https_login'] and script_basename()=='identification') {
+		force_https_set_header_https();	// Force HTTPS for identification page
+	} else if ($conf['force_https']['fhp_use_partial_https_login'] and script_basename()=='register') {
+		force_https_set_header_https();	// Force HTTPS for register page
+	} else if ($conf['force_https']['fhp_use_partial_https_login'] and script_basename()=='profile') {
+		force_https_set_header_https();	// Force HTTPS for profile page
+	} else if ($conf['force_https']['fhp_use_partial_https_admin'] and script_basename()=='admin') {
+		force_https_set_header_https();	// Force HTTPS for admin pages
+	} else if ($conf['force_https']['fhp_use_https']) {
+		if ($conf['force_https']['fhp_use_sts'] && isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') {
+			force_https_set_header_sts();	// Sets HSTS header
 		} elseif (!isset($_SERVER['HTTPS'])) {
-		  header('Status-Code: 301');
-		  header('Location: https://'.$_SERVER["HTTP_HOST"].$_SERVER['REQUEST_URI']);
+			force_https_set_header_https();	// Force HTTPS globally
 		}
 	}
 }
 
-function piwigo_force_https_strbool($value)
+/**
+ * Activates the HSTS header
+ */
+function force_https_set_header_sts() {
+	global $conf;
+	// With HSTS activated
+	header('Strict-Transport-Security: max-age='.$conf['force_https']['fhp_sts_maxage']);
+}
+
+/**
+ * Activates SSL navigation
+ */
+function force_https_set_header_https() {
+	global $conf;
+	// Without HSTS
+	header('Status-Code: '.$conf['force_https']['fhp_redirect_code']);
+	header('Location: '.FORCE_HTTPS_PREFIX.'://'.$_SERVER["HTTP_HOST"].$_SERVER['REQUEST_URI']);
+}
+
+/**
+* plugin initialization
+*   - check for upgrades
+*   - unserialize configuration
+*   - load language
+*/
+function force_https_init()
 {
-	return $value ? 'true' : 'false';
+	global $conf;
+
+	// load plugin language file
+	load_language('plugin.lang', FORCE_HTTPS_PATH);
+
+	// prepare plugin configuration
+	$conf['force_https'] = safe_unserialize($conf['force_https']);
+}
+
+function force_https_identification_menu_register($menu_ref_arr )
+{
+  $menu = & $menu_ref_arr[0];
+  if ($menu->get_id() != 'menubar')
+    return;
+  $menu->register_block( new RegisteredBlock( 'mbForceHttpsIdentifcation', 'mbForceHttpsIdentifcation', 'Force_HTTPS'));
+}
+
+function force_https_hide_identification_menu($menublock) {
+	global $conf,$template,$user;
+	
+	if ($conf['force_https']['fhp_use_partial_https_login'])
+	{
+		$menublock[0]->hide_block('mbIdentification'); 	// Removes Identification existing block
+		
+		// Send data to template
+		$template->assign (
+			array	(
+					'force_https_menu_title' => l10n('Connexion'),
+					'force_https_menu_name'  => l10n('Connexion'),
+					'force_https_menu_url' => get_root_url().'identification.php',
+					'force_https_theme' => $user['theme'],
+			)
+		);
+		 
+		if (($menublock[0]->get_block('mbForceHttpsIdentifcation')) != null) {
+			$template->set_template_dir(FORCE_HTTPS_PATH.'template/');
+			$menublock[0]->get_block('mbForceHttpsIdentifcation')->template = 'menubar_ident.tpl';
+		}
+	}
+	
+	
 }
 ?>
