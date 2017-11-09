@@ -1,7 +1,7 @@
 <?php
 /***********************************************
 * File      :   admin.php
-* Project   :   piwigo-force-https
+* Project   :   piwigo-ForceHTTPS
 * Descr     :   Generates the admin panel
 *
 * Created   :   02.05.2013

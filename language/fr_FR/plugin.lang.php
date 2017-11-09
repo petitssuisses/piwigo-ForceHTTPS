@@ -22,14 +22,16 @@ $lang['fhp_sts_maxage_comment'] = 'STS max-age en secondes';
 $lang['fhp_submit'] = 'Enregistrer';
 // New 2.0.0
 $lang['Global activation'] = 'Activation globale';
-$lang['Parial activation'] = 'Activation partielle';
-$lang['fhp_force_https_everywhere_label'] = 'HTTPS global';
-$lang['fhp_force_https_everywhere_comment'] = 'Forcer l\'utilisation du protocole HTTPS sur l\'ensemble du site';
-$lang['fhp_force_https_partial_login_label'] = 'HTTPS pour l\'identification';
-$lang['fhp_force_https_partial_admin_label'] = 'HTTPS pour les pages d\'administration';
-$lang['fhp_force_https_partial_login_comment'] = 'Forcer HTTPS pour l\'identification, le préférences et l\enregistrement';
-$lang['fhp_force_https_partial_admin_comment'] = 'Forcer HTTPS pour les pages d\'administration';
+$lang['Partial activation'] = 'Activation partielle';
+$lang['Advanced options'] = 'Options avancées';
+$lang['Global HTTPS'] = 'HTTPS global';
+$lang['Force usage of HTTPS on this site'] = 'Forcer l\'utilisation du protocole HTTPS sur l\'ensemble du site';
+$lang['Force HTTPS for identification'] = 'HTTPS pour l\'identification';
+$lang['Force HTTPS for administration'] = 'HTTPS pour les pages d\'administration';
+$lang['HTTPS activated for identification, register and profile pages only'] = 'Forcer HTTPS pour l\'identification, le préférences et l\'enregistrement';
+$lang['HTTPS activated for administration pages only'] = 'Forcer HTTPS pour les pages d\'administration';
 $lang['seconds'] = 'secondes';
 $lang['max-age must be set to a minimum of six months (15768000), but longer periods such as two years (63072000) are recommended'] = 'max-age doit être égal au minimum d\une durée de six mois (15768000), mais une période plus longue comme deux ans (63072000) est recommandée';
 $lang['301 permanent, 302 temporary'] = '301 permanent, 302 temporaire';
+$lang['fhp_activate_sts_comment_short'] = 'Active l\'option HTTP Strict Transport Security (HSTS). A n\'utiliser que si vous possédez un certificat TLS/SSL signé par une autorité valide';
 ?>

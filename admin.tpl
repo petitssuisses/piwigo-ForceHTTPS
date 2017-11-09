@@ -15,18 +15,16 @@
 		<table align="left" border="0">
 			<tr valign="top">
 				<td nowrap="nowrap" colspan="2"><input type="checkbox" name="fhp_use_https" id="fhp_use_https" value="{$force_https.fhp_use_https}" {if $force_https.fhp_use_https}checked="checked"{/if}></td>
-				<td width="125" nowrap="nowrap"><label>{'fhp_force_https_everywhere_label'|@translate}</label>
-				<a class="icon-info-circled-1 showInfo" title="{'fhp_force_https_everywhere_comment'|@translate}"></a></td>
-				<td></td>
+				<td width="125" nowrap="nowrap"><label>{'Global HTTPS'|@translate}</label>
+				<a class="icon-info-circled-1 showInfo" title="{'Force usage of HTTPS on this site'|@translate}"></a></td>
 			</tr>
 			<tr valign="top">
 				<td nowrap="nowrap"></td>
 				<td nowrap="nowrap"><input type="checkbox" id="fhp_use_sts" name="fhp_use_sts" value="{$force_https.fhp_use_sts}" {if !$force_https.fhp_use_https}disabled="true"{/if} {if $force_https.fhp_use_sts}checked="checked"{/if}></td>
-				<td width="125" nowrap="nowrap"><label>{'fhp_activate_sts_label'|@translate}</td>
-				<td><label>{'fhp_activate_sts_comment'|@translate}</label></td>
+				<td width="125" nowrap="nowrap"><label>{'fhp_activate_sts_label'|@translate}</label>
+					<a class="icon-info-circled-1 showInfo" title="{'fhp_activate_sts_comment_short'|@translate}"></a></td>
 			</tr>
 			<tr valign="top">
-				<td nowrap="nowrap"></td>
 				<td nowrap="nowrap"></td>
 				<td nowrap="nowrap" colspan="2"></td>
 			</tr>
@@ -38,14 +36,14 @@
 		<table align="left" border="0">
 			<tr valign="top">
 				<td nowrap="nowrap"><input type="checkbox" name="fhp_use_partial_https_login" id="fhp_use_partial_https_login" value="{$force_https.fhp_use_partial_https_login}" {if $force_https.fhp_use_partial_https_login || $force_https.fhp_use_https}checked="checked"{/if} {if $force_https.fhp_use_https}disabled="true"{/if}></td>
-				<td nowrap="nowrap"><label>{'fhp_force_https_partial_login_label'|@translate}</label>
-				<a class="icon-info-circled-1 showInfo" title="{'fhp_force_https_partial_login_comment'|@translate}"></a></td>
+				<td nowrap="nowrap"><label>{'Force HTTPS for identification'|@translate}</label>
+				<a class="icon-info-circled-1 showInfo" title="{'HTTPS activated for identification, register and profile pages only'|@translate}"></a></td>
 				
 			</tr>
 			<tr valign="top">
 				<td nowrap="nowrap"><input type="checkbox" name="fhp_use_partial_https_admin" id="fhp_use_partial_https_admin" value="{$force_https.fhp_use_partial_https_admin}" {if $force_https.fhp_use_partial_https_admin || $force_https.fhp_use_https}checked="checked"{/if} {if $force_https.fhp_use_https}disabled="true"{/if}></td>
-				<td nowrap="nowrap"><label>{'fhp_force_https_partial_admin_label'|@translate}</label>
-				<a class="icon-info-circled-1 showInfo" title="{'fhp_force_https_partial_admin_comment'|@translate}"></a></td>
+				<td nowrap="nowrap"><label>{'Force HTTPS for administration'|@translate}</label>
+				<a class="icon-info-circled-1 showInfo" title="{'HTTPS activated for administration pages only'|@translate}"></a></td>
 			</tr>
 		</table>		
 	</fieldset>
