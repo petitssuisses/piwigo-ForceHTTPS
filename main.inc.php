@@ -8,6 +8,9 @@ Author: Arnaud (bonhommedeneige)
 Author URI: http://piwigo.org/forum/profile.php?id=19052
 
 Changelog :
+ 2.0.2 (12.11.2017) : Fixed issue infinite HTTPS>HTTP>HTTPS redirect issue #8 (https://github.com/petitssuisses/piwigo-ForceHTTPS/issues/8)
+ 					  Implemented auto-check HTTPS, issue #9 (https://github.com/petitssuisses/piwigo-ForceHTTPS/issues/9)
+ 2.0.1 (09.11.2017) : Cleaned adminitstration interface
  2.0.0 (06.11.2017) : Upgraded new features (partial activation, new settings
  1.5.0 (01.11.2017) : Upgrade for Piwigo 2.9
  					  Remove useless ...init() function
@@ -95,7 +98,9 @@ function force_https_header() {
 				}
 				break;
 			default:
-				force_https_set_header_http();
+				if ($conf['force_https']['fhp_use_partial_http_other']) {
+					force_https_set_header_http();	// Redirect HTTPS to HTTP for non protected navigtion (if enabled in the config)
+				}
 		}
 	}
 }
@@ -127,7 +132,7 @@ function force_https_set_header_https() {
 function force_https_set_header_http() {
 	global $conf;
 
-	if (isset($_SERVER['HTTPS'])) {
+	if (isset($_SERVER['HTTPS']) and $conf['force_https']['fhp_use_partial_http_other']) {
 		header('Status-Code: '.$conf['force_https']['fhp_redirect_code']);
 		header('Location: '.FORCE_HTTP_PREFIX.'://'.$_SERVER["HTTP_HOST"].$_SERVER['REQUEST_URI']);
 	}
@@ -150,6 +155,10 @@ function force_https_init()
 	$conf['force_https'] = safe_unserialize($conf['force_https']);
 }
 
+/**
+ * 
+ * @param unknown $menu_ref_arr
+ */
 function force_https_identification_menu_register($menu_ref_arr )
 {
   $menu = & $menu_ref_arr[0];
@@ -158,6 +167,10 @@ function force_https_identification_menu_register($menu_ref_arr )
   $menu->register_block( new RegisteredBlock( 'mbForceHttpsIdentifcation', 'mbForceHttpsIdentifcation', 'Force_HTTPS'));
 }
 
+/**
+ * 
+ * @param unknown $menublock
+ */
 function force_https_hide_identification_menu($menublock) {
 	global $conf,$template,$user;
 	
@@ -180,7 +193,5 @@ function force_https_hide_identification_menu($menublock) {
 			$menublock[0]->get_block('mbForceHttpsIdentifcation')->template = 'menubar_ident.tpl';
 		}
 	}
-	
-	
 }
 ?>

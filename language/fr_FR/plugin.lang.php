@@ -34,4 +34,12 @@ $lang['seconds'] = 'secondes';
 $lang['max-age must be set to a minimum of six months (15768000), but longer periods such as two years (63072000) are recommended'] = 'max-age doit être égal au minimum d\une durée de six mois (15768000), mais une période plus longue comme deux ans (63072000) est recommandée';
 $lang['301 permanent, 302 temporary'] = '301 permanent, 302 temporaire';
 $lang['fhp_activate_sts_comment_short'] = 'Active l\'option HTTP Strict Transport Security (HSTS). A n\'utiliser que si vous possédez un certificat TLS/SSL signé par une autorité valide';
+// New 2.0.2
+$lang['Manual Verification'] = 'Vérification manuelle';
+$lang['Plugin could not automatically verify your host SSL/HTTPS compatibility. Please manually check that HTTPS navigation is available using the following button. Do NOT activate HTTPS if page within the popup can not be loaded successfully.'] = 'Le plugin n\'a pas pu déterminer automatiquement si votre serveur hôte supporte SSL/HTTPS. Veuillez vérifier manuellement en cliquant sur le bouton ci-après. NE PAS ACTIVER HTTPS si la page dans la popup ne se charge pas correctement.';
+$lang['I have proceeded to the manual check'] = 'J\'ai effectué une vérification manuelle';
+$lang['HTTPS unavailable'] = 'HTTPS non disponible';
+$lang['Your hosting server does not support HTTPS, a SSL certificate is required. Plugin activation is disabled.'] = 'Votre serveur hôte ne supporte pas HTTPS. Un certficat SSL certificate est requis. Plugin désactivé.';
+$lang['HTTPS available'] = 'HTTPS disponible';
+$lang['Your hosting server does support HTTPS.'] = 'Votre serveur hôte supporte HTTPS.';
 ?>

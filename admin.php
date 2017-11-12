@@ -50,20 +50,25 @@ if (isset($_POST['save_config']))
 			'fhp_use_partial_https_admin' => isset($_POST['fhp_use_partial_https_admin']),
 			'fhp_sts_maxage' => intval($_POST['fhp_sts_maxage']),
 			'fhp_redirect_code' => intval($_POST['fhp_redirect_code']),
-			
+			'fhp_use_partial_http_other' => isset($_POST['fhp_use_partial_http_other']),
+			'fhp_manual_confirm' => isset($_POST['fhp_manual_confirm'])
 	);
-
 	conf_update_param('force_https', $conf['force_https']);
 	$page['infos'][] = l10n('Information data registered in database');
 }
 
-// Test URL
-$tpl_test_https_url = "https://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+// Auto-test HTTPS server capacity
+if ($conf['force_https']['fhp_autocheck'] == '') {
+	force_https_autocheck();
+}
+//$tpl_test_https_url = "https://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+$https_test_url = str_replace('http:','https:',get_absolute_root_url());
+
 
 // send config to template
 $template->assign(array(
 		'force_https' => $conf['force_https'],
-		'TPL_TEST_URL'          => $tpl_test_https_url,
+		'TPL_TEST_URL' => $https_test_url,
 ));
 
 // Add our template to the global template
@@ -75,4 +80,43 @@ $template->set_filenames(
 
 // Assign the template contents to ADMIN_CONTENT
 $template->assign_var_from_handle('ADMIN_CONTENT', 'plugin_admin_content');
+
+/**
+ * Automatically checks if HTTPS is available on this site by trying to load Piwigo root url via HTTPS.
+ * Updates the configuration variable 'fhp_autocheck' with the following values
+ * - 'N/A' could not determine server capabilities (if curl is not available)
+ * - 'HTTP' only HTTP is available on the server
+ * - 'HTTPS' HTTPS is available on the server
+ * Requires curl library to be performed
+ */
+function force_https_autocheck() {
+	global $conf;
+	$https_test_url = str_replace('http:','https:',get_absolute_root_url());
+	$conf['force_https']['fhp_autocheck'] = "N/A";
+	// ----------
+	// Initialize session and set URL.
+	if (function_exists('curl_version')) {
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, $https_test_url);
+		// Set so curl_exec returns the result instead of outputting it.
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		// Allow unverified SSL certificates
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+
+		// Get the response and close the channel.
+		if ($res=curl_exec($ch)) {
+			$conf['force_https']['fhp_autocheck'] = "HTTPS";
+		} else {
+			$conf['force_https']['fhp_autocheck'] = "HTTP";
+			// Disable any active config
+			$conf['force_https']['fhp_use_https'] = false;
+			$conf['force_https']['fhp_use_partial_https_login'] = false;
+			$conf['force_https']['fhp_use_partial_https_admin'] = false;
+			$conf['force_https']['fhp_use_sts'] = false;
+			$conf['force_https']['fhp_use_partial_http_other'] = false;
+		}
+		conf_update_param ('force_https', safe_unserialize ($conf['force_https']), true);
+		curl_close($ch);
+	}
+}
 ?>

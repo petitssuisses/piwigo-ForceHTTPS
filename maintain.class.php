@@ -5,7 +5,7 @@
 * Descr     :   Plugin maintenance methods
 *
 * Created   :   02.01.2015
-* Updated   :   01.11.2017
+* Updated   :   12.11.2017
 * Author    :   Arnaud (bonhommedeneige)
 *
 * This program is free software: you can redistribute it and/or modify
@@ -24,7 +24,8 @@
 ************************************************/
 
 /**
- * Changelog :
+ * Changelog 
+ * 2.0.2 (12.11.2017) : See main.inc.php header
  * 2.0.0 (01.11.2017) : Recoded class to simplify usage and maintenance
  * 1.4.0 (02.01.2015) : New maintenance class (compatibility with Piwigo 2.7.x)
  */
@@ -38,7 +39,10 @@ class Force_HTTPS_maintain extends PluginMaintain {
 		'fhp_use_partial_https_admin' => false, // Force https when browsing the administration interface
 		'fhp_use_sts' => false, // HTTP Strict Transport Security (HSTS) usage status tag used by the piwigo-force-https plugin
 		'fhp_sts_maxage' => 15768000, 	 // max age duration (in seconds) used by the piwigo-force-https plugin
-		'fhp_redirect_code' => 301   // HTTP header redirect code (301 permanent, 302 temporary)
+		'fhp_redirect_code' => 301,   // HTTP header redirect code (301 permanent, 302 temporary)
+		'fhp_use_partial_http_other' => false,	// Force the use of HTTP on non protected pages
+		'fhp_autocheck' => '',	// Autocheck if HTTPS is available on server ('N/A' No possible check, 'HTTP' http only, 'HTTPS' https available)
+		'fhp_manual_confirm' => false,
 	);
 
 	private $dir;
@@ -62,8 +66,8 @@ class Force_HTTPS_maintain extends PluginMaintain {
 		// add config parameter
 		if (empty ($conf['force_https'])) {
 			// conf_update_param well serialize and escape array before database insertion
-			// the third parameter indicates to update $conf['skeleton'] global variable as well
-			conf_update_param ( 'force_https', $this->default_conf, true );
+			// the third parameter indicates to update $conf['force_https'] global variable as well
+			conf_update_param ('force_https', $this->default_conf, true );
 		} else {
 			$old_conf = safe_unserialize ($conf['force_https']);
 			conf_update_param ('force_https', $old_conf, true);
