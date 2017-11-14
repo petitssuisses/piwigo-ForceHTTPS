@@ -1,3 +1,12 @@
+{footer_script}
+jQuery(".showInfo").tipTip({
+  delay: 0,
+  fadeIn: 200,
+  fadeOut: 200,
+  maxWidth: '300px',
+  defaultPosition: 'bottom'
+});
+{/footer_script}
 <div class="titrePage">
   <h2>Force HTTPS</h2>
 </div>
