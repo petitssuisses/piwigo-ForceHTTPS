@@ -58,7 +58,7 @@ if (isset($_POST['save_config']))
 }
 
 // Auto-test HTTPS server capacity
-if ($conf['force_https']['fhp_autocheck'] == '') {
+if (!isset($conf['force_https']['fhp_autocheck']) || ($conf['force_https']['fhp_autocheck'] == '')) {
 	force_https_autocheck();
 }
 //$tpl_test_https_url = "https://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
@@ -115,8 +115,8 @@ function force_https_autocheck() {
 			$conf['force_https']['fhp_use_sts'] = false;
 			$conf['force_https']['fhp_use_partial_http_other'] = false;
 		}
-		conf_update_param ('force_https', safe_unserialize ($conf['force_https']), true);
 		curl_close($ch);
 	}
+	conf_update_param ('force_https', safe_unserialize ($conf['force_https']), true);
 }
 ?>
