@@ -68,9 +68,8 @@ function force_https_admin_plugin_menu_links($menu)
  */
 function force_https_header() {
 	global $conf;
-	
-	if ($conf['force_https']['fhp_use_https']) {
-		if ($conf['force_https']['fhp_use_sts'] && isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') {
+	if (isset($conf['force_https']['fhp_use_https']) && $conf['force_https']['fhp_use_https']) {
+		if (isset($conf['force_https']['fhp_use_sts']) && $conf['force_https']['fhp_use_sts'] && isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') {
 			force_https_set_header_sts();	// Sets HSTS header
 		}
 		force_https_set_header_https();	// Force HTTPS globally)
@@ -78,27 +77,27 @@ function force_https_header() {
 		// HTTPS not forced globally
 		switch(script_basename()) {
 			case 'identification':	// Enables HTTPS only if browsing in HTTP and conf is active for login
-				if (($conf['force_https']['fhp_use_partial_https_login']) and (!isset($_SERVER['HTTPS']))) {
+				if (isset($conf['force_https']['fhp_use_partial_https_login']) && ($conf['force_https']['fhp_use_partial_https_login']) && (!isset($_SERVER['HTTPS']))) {
 					force_https_set_header_https();
 				}
 				break;
 			case 'register':		// Enables HTTPS only if browsing in HTTP and conf is active for login
-				if ($conf['force_https']['fhp_use_partial_https_login'] and !isset($_SERVER['HTTPS'])) {
+				if (isset($conf['force_https']['fhp_use_partial_https_login']) && $conf['force_https']['fhp_use_partial_https_login'] && !isset($_SERVER['HTTPS'])) {
 					force_https_set_header_https();
 				}
 				break;
 			case 'profile':			// Enables HTTPS only if browsing in HTTP and conf is active for login
-				if ($conf['force_https']['fhp_use_partial_https_login'] and !isset($_SERVER['HTTPS'])) {
+				if (isset($conf['force_https']['fhp_use_partial_https_login']) && $conf['force_https']['fhp_use_partial_https_login'] && !isset($_SERVER['HTTPS'])) {
 					force_https_set_header_https();
 				}
 				break;
 			case 'admin':			// Enables HTTPS only if browsing in HTTP and conf is active for admin
-				if ($conf['force_https']['fhp_use_partial_https_admin'] and !isset($_SERVER['HTTPS'])) {
+				if (isset($conf['force_https']['fhp_use_partial_https_admin']) && $conf['force_https']['fhp_use_partial_https_admin'] && !isset($_SERVER['HTTPS'])) {
 					force_https_set_header_https();
 				}
 				break;
 			default:
-				if ($conf['force_https']['fhp_use_partial_http_other']) {
+				if (isset($conf['force_https']['fhp_use_partial_http_other']) && $conf['force_https']['fhp_use_partial_http_other']) {
 					force_https_set_header_http();	// Redirect HTTPS to HTTP for non protected navigtion (if enabled in the config)
 				}
 		}
