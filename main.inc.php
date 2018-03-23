@@ -119,7 +119,7 @@ function force_https_set_header_sts() {
 function force_https_set_header_https() {
 	global $conf;
 
-	if (!isset($_SERVER['HTTPS'])) {
+	if (isset($_SERVER['HTTPS']) or $_SERVER['HTTP_X_FORWARDED_PROTO'] != 'https') {
 		header('Status-Code: '.$conf['force_https']['fhp_redirect_code']);
 		header('Location: '.FORCE_HTTPS_PREFIX.'://'.$_SERVER["HTTP_HOST"].$_SERVER['REQUEST_URI']);
 	}
@@ -131,7 +131,7 @@ function force_https_set_header_https() {
 function force_https_set_header_http() {
 	global $conf;
 
-	if (isset($_SERVER['HTTPS']) and $conf['force_https']['fhp_use_partial_http_other']) {
+	if ((isset($_SERVER['HTTPS']) or $_SERVER['HTTP_X_FORWARDED_PROTO'] != 'https') and $conf['force_https']['fhp_use_partial_http_other']) {
 		header('Status-Code: '.$conf['force_https']['fhp_redirect_code']);
 		header('Location: '.FORCE_HTTP_PREFIX.'://'.$_SERVER["HTTP_HOST"].$_SERVER['REQUEST_URI']);
 	}
