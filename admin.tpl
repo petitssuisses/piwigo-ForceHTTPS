@@ -1,12 +1,3 @@
-{footer_script}
-jQuery(".showInfo").tipTip({
-  delay: 0,
-  fadeIn: 200,
-  fadeOut: 200,
-  maxWidth: '300px',
-  defaultPosition: 'bottom'
-});
-{/footer_script}
 <div class="titrePage">
   <h2>Force HTTPS</h2>
 </div>
@@ -46,13 +37,13 @@ jQuery(".showInfo").tipTip({
 			<tr valign="top">
 				<td nowrap="nowrap" colspan="2"><input type="checkbox" name="fhp_use_https" id="fhp_use_https" value="{$force_https.fhp_use_https}" {if $force_https.fhp_use_https}checked="checked"{/if} {if $force_https.fhp_autocheck === 'HTTP'}disabled="true"{/if}></td>
 				<td nowrap="nowrap"><label>{'Global HTTPS'|@translate}</label>
-				<a class="icon-info-circled-1 showInfo" title="{'Force usage of HTTPS on this site'|@translate}"></a></td>
+				<a class="icon-info-circled-1" title="{'Force usage of HTTPS on this site'|@translate}"></a></td>
 			</tr>
 			<tr valign="top">
 				<td nowrap="nowrap"></td>
 				<td nowrap="nowrap"><input type="checkbox" id="fhp_use_sts" name="fhp_use_sts" value="{$force_https.fhp_use_sts}" {if !$force_https.fhp_use_https}disabled="true"{/if} {if $force_https.fhp_use_sts}checked="checked"{/if}></td>
 				<td nowrap="nowrap"><label>{'fhp_activate_sts_label'|@translate}</label>
-					<a class="icon-info-circled-1 showInfo" title="{'fhp_activate_sts_comment_short'|@translate}"></a></td>
+					<a class="icon-info-circled-1" title="{'fhp_activate_sts_comment_short'|@translate}"></a></td>
 			</tr>
 			<tr valign="top">
 				<td nowrap="nowrap"></td>
@@ -67,21 +58,21 @@ jQuery(".showInfo").tipTip({
 			<tr valign="top">
 				<td nowrap="nowrap"><input type="checkbox" name="fhp_use_partial_https_login" id="fhp_use_partial_https_login" value="{$force_https.fhp_use_partial_https_login}" {if $force_https.fhp_use_partial_https_login || $force_https.fhp_use_https}checked="checked"{/if} {if $force_https.fhp_use_https || $force_https.fhp_autocheck === 'HTTP'}disabled="true"{/if}></td>
 				<td nowrap="nowrap"><label>{'Force HTTPS for identification'|@translate}</label>
-					<a class="icon-info-circled-1 showInfo" title="{'HTTPS activated for identification, register and profile pages only'|@translate}"></a>
+					<a class="icon-info-circled-1" title="{'HTTPS activated for identification, register and profile pages only'|@translate}"></a>
 				</td>
 				<td rowspan="2" nowrap="nowrap" valign="middle">
 					<input type="checkbox" name="fhp_use_partial_http_other" id="fhp_use_partial_http_other" value="{$force_https.fhp_use_partial_http_other}" {if $force_https.fhp_use_partial_http_other}checked="checked"{/if} {if (!$force_https.fhp_use_partial_https_login && !$force_https.fhp_use_partial_https_admin) || $force_https.fhp_autocheck === 'HTTP'}disabled="true"{/if}>
 				</td>
 				<td rowspan="2" nowrap="nowrap" valign="middle">
 					<label>{'Force HTTP navigation on unprotected pages'|@translate}</label>
-					<a class="icon-info-circled-1 showInfo" title="{'Warning, do not activate if you have HTTPS forced through a vhost or .htaccess configuration'|@translate}"></a>
+					<a class="icon-info-circled-1" title="{'Warning, do not activate if you have HTTPS forced through a vhost or .htaccess configuration'|@translate}"></a>
 				</td>
 				
 			</tr>
 			<tr valign="top">
 				<td nowrap="nowrap"><input type="checkbox" name="fhp_use_partial_https_admin" id="fhp_use_partial_https_admin" value="{$force_https.fhp_use_partial_https_admin}" {if $force_https.fhp_use_partial_https_admin || $force_https.fhp_use_https}checked="checked"{/if} {if $force_https.fhp_use_https || $force_https.fhp_autocheck === 'HTTP'}disabled="true"{/if}></td>
 				<td nowrap="nowrap"><label>{'Force HTTPS for administration'|@translate}</label>
-				<a class="icon-info-circled-1 showInfo" title="{'HTTPS activated for administration pages only'|@translate}"></a></td>
+				<a class="icon-info-circled-1" title="{'HTTPS activated for administration pages only'|@translate}"></a></td>
 				<td></td>
 			</tr>
 		</table>		
@@ -92,7 +83,7 @@ jQuery(".showInfo").tipTip({
 		<table align="left">
 			<tr valign="top">
 				<td nowrap="nowwap">{'Strict-Transport-Security max-age'|@translate} <input type="number" size="20" maxlength="20" name="fhp_sts_maxage" id="fhp_sts_maxage" value="{$force_https.fhp_sts_maxage}" style="width: 80px;">&nbsp;{'seconds'|translate}
-					<a class="icon-info-circled-1 showInfo" title="{'max-age must be set to a minimum of six months (15768000), but longer periods such as two years (63072000) are recommended'|@translate}"></a>
+					<a class="icon-info-circled-1" title="{'max-age must be set to a minimum of six months (15768000), but longer periods such as two years (63072000) are recommended'|@translate}"></a>
 				</td>
 			</tr>
 			<tr valign="top">
@@ -101,7 +92,7 @@ jQuery(".showInfo").tipTip({
 						<option value="301"{if $force_https.fhp_redirect_code == '301'} selected{/if}>{'301 (permanent)'|translate}</option>
 						<option value="302"{if $force_https.fhp_redirect_code == '302'} selected{/if}>{'302 (temporary)'|translate}</option>
 					</select>
-					<a class="icon-info-circled-1 showInfo" title="{'301 permanent, 302 temporary'|@translate}"></a>
+					<a class="icon-info-circled-1" title="{'301 permanent, 302 temporary'|@translate}"></a>
 				</td>
 			</tr>
 			<tr valign="top">

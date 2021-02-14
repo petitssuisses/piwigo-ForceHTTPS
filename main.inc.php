@@ -1,13 +1,14 @@
 <?php 
 /*
 Plugin Name: Force HTTPS
-Version: auto
+Version: 11.1
 Description: Gives the capacity to force https connections on https enabled servers.
 Plugin URI: http://piwigo.org/ext/extension_view.php?eid=697
 Author: Arnaud (bonhommedeneige)
 Author URI: http://piwigo.org/forum/profile.php?id=19052
 
 Changelog :
+ 11.1  (14.02.2021) : Piwigo V11 compatibility
  2.0.2 (12.11.2017) : Fixed issue infinite HTTPS>HTTP>HTTPS redirect issue #8 (https://github.com/petitssuisses/piwigo-ForceHTTPS/issues/8)
  					  Implemented auto-check HTTPS, issue #9 (https://github.com/petitssuisses/piwigo-ForceHTTPS/issues/9)
  2.0.1 (09.11.2017) : Cleaned adminitstration interface
