@@ -33,4 +33,4 @@ $lang['fhp_sts_maxage_comment'] = 'STS-maksimal alder i sekunder';
 $lang['fhp_sts_maxage_label'] = 'STS-maksimal alder';
 $lang['fhp_submit'] = 'Gem';
 $lang['fhp_test_https_link'] = 'Test denne side i https (popopvindue)';
-?>
+$lang['Advanced options'] = 'Advanced options test';
