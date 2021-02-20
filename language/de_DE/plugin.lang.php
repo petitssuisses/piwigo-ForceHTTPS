@@ -33,3 +33,26 @@ $lang['fhp_sts_maxage_comment'] = 'maximales STS-Alter in Sekunden';
 $lang['fhp_sts_maxage_label'] = 'maximales STS-Alter';
 $lang['fhp_submit'] = 'Übertragen';
 $lang['fhp_test_https_link'] = 'Die Seite mit HTTPS testen (Popup-Fenster)';
+$lang['301 permanent, 302 temporary'] = '301 dauerhaft, 302 temporär';
+$lang['Advanced options'] = 'Erweiterte Optionen';
+$lang['Force HTTPS for administration'] = 'HTTPS für Administration erzwingen';
+$lang['Force HTTPS for identification'] = 'HTTPS für Anmeldung erzwingen';
+$lang['Force usage of HTTPS on this site'] = 'HTTPS für diese Seite erzwingen';
+$lang['Global HTTPS'] = 'Durchgängiges HTTPS';
+$lang['Global activation'] = 'Globale Aktivierung';
+$lang['HTTPS activated for administration pages only'] = 'HTTPS nur für administrative Seiten aktiviert';
+$lang['HTTPS activated for identification, register and profile pages only'] = 'HTTPS nur für Anmelde-, Registrierungs- und Profilseiten aktiviert';
+$lang['HTTPS available'] = 'HTTPS verfügbar';
+$lang['HTTPS unavailable'] = 'HTTPS nicht verfügbar';
+$lang['I have proceeded to the manual check'] = 'Manuelle Überprüfung durchgeführt';
+$lang['Manual Verification'] = 'Manuelle Überprüfung';
+$lang['Parial activation'] = 'Teilaktivierung';
+$lang['Plugin could not automatically verify your host SSL/HTTPS compatibility. Please manually check that HTTPS navigation is available using the following button. Do NOT activate HTTPS if page within the popup can not be loaded successfully.'] = 'Das Plugin konnte die SSL / HTTPS-Kompatibilität Ihres Hosts nicht automatisch überprüfen. Bitte überprüfen Sie manuell, ob die HTTPS-Navigation über die folgende Schaltfläche verfügbar ist. Aktivieren Sie HTTPS NICHT, wenn die Seite im Popup nicht erfolgreich geladen wird.';
+$lang['Your hosting server does not support HTTPS, a SSL certificate is required. Plugin activation is disabled.'] = 'Ihr Hostinganbieter unterstützt kein HTTPS, ein SSL-Zertifikat wird benötigt. Plugin-Aktivierung nicht möglich.';
+$lang['Your hosting server does support HTTPS.'] = 'Ihr Hostinganbieter unterstützt HTTPS';
+$lang['fhp_activate_sts_comment_short'] = 'Aktiviert HTTP Strict Transport Security (HSTS). Nur für signierte TLS-Zertifikate zu verwenden.';
+$lang['max-age must be set to a minimum of six months (15768000), but longer periods such as two years (63072000) are recommended'] = 'max-age muss mindestens eine Dauer von sechs Monaten umfassen (15768000), eine längere Laufzeit von z.B. zwei Jahren (63072000) wird empfohlen.
+	
+
+';
+$lang['seconds'] = 'Sekunden';
