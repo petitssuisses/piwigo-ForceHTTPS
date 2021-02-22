@@ -22,9 +22,9 @@ $lang['Force HTTPS for identification'] = 'Force HTTPS for identification';
 $lang['Force HTTPS for administration'] = 'Force HTTPS for administration';
 $lang['HTTPS activated for identification, register and profile pages only'] = 'HTTPS activated for identification, register and profile pages only';
 $lang['HTTPS activated for administration pages only'] = 'HTTPS activated for administration pages only';
-$lang['seconds'] = 'secondes';
-$lang['max-age must be set to a minimum of six months (15768000), but longer periods such as two years (63072000) are recommended'] = 'max-age doit être égal au minimum d\une durée de six mois (15768000), mais une période plus longue comme deux ans (63072000) est recommandée';
-$lang['301 permanent, 302 temporary'] = '301 permanent, 302 temporaire';
+$lang['seconds'] = 'sekunder';
+$lang['max-age must be set to a minimum of six months (15768000), but longer periods such as two years (63072000) are recommended'] = 'Max-age should equal a minimum of six months duration (15768000), but a longer period like two years (63072000) is recommended';
+$lang['301 permanent, 302 temporary'] = '301 permanent, 302 temporary';
 $lang['fhp_activate_sts_comment_short'] = 'Activates HTTP Strict Transport Security (HSTS). To use only if you own a signed TLS certficate';
 // New 2.0.2
 $lang['Manual Verification'] = 'Manual Verification';
@@ -34,4 +34,3 @@ $lang['HTTPS unavailable'] = 'HTTPS unavailable';
 $lang['Your hosting server does not support HTTPS, a SSL certificate is required. Plugin activation is disabled.'] = 'Your hosting server does not support HTTPS, a SSL certificate is required. Plugin activation is disabled.';
 $lang['HTTPS available'] = 'HTTPS available';
 $lang['Your hosting server does support HTTPS.'] = 'Your hosting server does support HTTPS.';
-?>
