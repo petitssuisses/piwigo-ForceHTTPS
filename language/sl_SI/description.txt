@@ -1,0 +1,1 @@
+Omogoča vsiljevanje povezav https na strežnikih, ki podpirajo https.
