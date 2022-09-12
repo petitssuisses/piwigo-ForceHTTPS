@@ -1,0 +1,1 @@
+Gefur möguleika á að þvinga fram https tengingar á netþjónum sem eru virkjanlegir fyrir https.
