@@ -22,7 +22,6 @@ $lang['fhp_sts_maxage_comment'] = 'STS max-age en secondes';
 $lang['fhp_submit'] = 'Enregistrer';
 // New 2.0.0
 $lang['Global activation'] = 'Activation globale';
-$lang['Partial activation'] = 'Activation partielle';
 $lang['Advanced options'] = 'Options avancées';
 $lang['Global HTTPS'] = 'HTTPS global';
 $lang['Force usage of HTTPS on this site'] = 'Forcer l\'utilisation du protocole HTTPS sur l\'ensemble du site';
@@ -42,4 +41,4 @@ $lang['HTTPS unavailable'] = 'HTTPS non disponible';
 $lang['Your hosting server does not support HTTPS, a SSL certificate is required. Plugin activation is disabled.'] = 'Votre serveur hôte ne supporte pas HTTPS. Un certficat SSL certificate est requis. Plugin désactivé.';
 $lang['HTTPS available'] = 'HTTPS disponible';
 $lang['Your hosting server does support HTTPS.'] = 'Votre serveur hôte supporte HTTPS.';
-?>
+$lang['Parial activation'] = 'Activation partielle';
