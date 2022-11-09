@@ -31,3 +31,4 @@ $lang['Your hosting server does not support HTTPS, a SSL certificate is required
 $lang['Your hosting server does support HTTPS.'] = 'Váš hostingový server podporuje HTTPS.';
 $lang['fhp_activate_sts_comment_short'] = 'Aktivuje HTTP Strict Transport Security (HSTS). Použít pouze v případě, že vlastníte podepsaný certifikát TLS';
 $lang['max-age must be set to a minimum of six months (15768000), but longer periods such as two years (63072000) are recommended'] = 'Maximální stáří by se mělo rovnat minimálně šestiměsíčnímu trvání (15768000), ale doporučuje se delší období, například dva roky (63072000).';
+$lang['seconds'] = 'sekund';
