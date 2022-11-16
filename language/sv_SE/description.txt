@@ -1,0 +1,1 @@
+Ger kapacitet att tvinga fram https-anslutningar på https-aktiverade servrar.
