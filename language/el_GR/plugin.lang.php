@@ -50,3 +50,6 @@ $lang['Force HTTPS for identification'] = 'Επιβολή HTTPS για αναγ�
 $lang['Force HTTPS for administration'] = 'Επιβολή HTTPS για διαχείριση';
 $lang['Advanced options'] = 'Προχωρημένες επιλογές';
 $lang['301 permanent, 302 temporary'] = '301 μόνιμοι, 302 προσωρινοί';
+$lang['fhp_activate_sts_comment_short'] = 'Ενεργοποιεί την Αυστηρή Ασφάλεια Μεταφοράς (HSTS). Για χρήση μόνον αν διαθέτετε ένα υπογεγγραμένο πιστοποιητικό TLS';
+$lang['max-age must be set to a minimum of six months (15768000), but longer periods such as two years (63072000) are recommended'] = 'Η μεγιστη ηλικία θα πρέπει να ισούται με ένα εξάμηνο κατ\' ελάχιστο (15768000) αλλά συστήνεται μεγαλύτερη περίοδος όπως δύο έτη (63072000)';
+$lang['seconds'] = 'δευτερόλεπτα';
